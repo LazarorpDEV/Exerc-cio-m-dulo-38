@@ -1,0 +1,20 @@
+PASS: implantação e página JSF
+PASS: resposta JSF HTTP 200
+PASS: cadastro pelo formulário
+PASS: gravação real no PostgreSQL e centavos preservados
+PASS: resposta JSF HTTP 200
+PASS: duplicidade rejeitada
+PASS: resposta JSF HTTP 200
+PASS: preço zero rejeitado
+PASS: resposta JSF HTTP 200
+PASS: estoque negativo rejeitado
+PASS: resposta JSF HTTP 200
+PASS: carregamento para edição
+PASS: resposta JSF HTTP 200
+PASS: edição pelo formulário
+PASS: alteração confirmada no PostgreSQL
+PASS: persistência em nova página
+PASS: resposta JSF HTTP 200
+PASS: exclusão pelo formulário
+PASS: exclusão confirmada no PostgreSQL
+INTEGRATION SUCCESS

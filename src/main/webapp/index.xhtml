@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core">
+<f:view locale="pt_BR">
+<h:head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cadastro de Produtos | Módulo 38</title>
+  <h:outputStylesheet library="css" name="estilo.css"/>
+</h:head>
+<h:body>
+  <header><div class="wrap"><span class="eyebrow">LÁZARO RODRIGUES · MÓDULO 38</span><h1>Cadastro de produtos</h1><p>Organize os produtos e acompanhe seu estoque.</p></div></header>
+  <main class="wrap">
+    <h:messages id="mensagens" globalOnly="false" infoClass="sucesso" errorClass="erro" layout="list"/>
+    <section class="card">
+      <h2>#{empty produtoController.produto.id ? 'Novo produto' : 'Editar produto'}</h2>
+      <h:form id="cadastro">
+        <div class="grid">
+          <div><h:outputLabel for="codigo" value="Código"/><h:inputText id="codigo" value="#{produtoController.produto.codigo}" required="true" requiredMessage="Informe o código." maxlength="30"/></div>
+          <div><h:outputLabel for="nome" value="Nome do produto"/><h:inputText id="nome" value="#{produtoController.produto.nome}" required="true" requiredMessage="Informe o nome." maxlength="100"/></div>
+          <div><h:outputLabel for="preco" value="Preço (R$)"/><h:inputText id="preco" value="#{produtoController.produto.preco}" required="true" requiredMessage="Informe o preço." converterMessage="Preço inválido. Use vírgula para os centavos, por exemplo: 19,90."><f:convertNumber type="number" locale="pt_BR" groupingUsed="false" maxFractionDigits="2"/></h:inputText><small>Exemplo: 19,90</small></div>
+          <div><h:outputLabel for="estoque" value="Quantidade em estoque"/><h:inputText id="estoque" value="#{produtoController.produto.estoque}" required="true" requiredMessage="Informe o estoque." converterMessage="O estoque deve ser um número inteiro."/></div>
+        </div>
+        <div class="actions"><h:commandButton value="Salvar produto" action="#{produtoController.salvar}" styleClass="primary"/>
+        <h:commandButton value="Limpar / cancelar" action="#{produtoController.novo}" immediate="true"><f:ajax execute="@this" render="@all" resetValues="true"/></h:commandButton></div>
+      </h:form>
+    </section>
+    <section class="card">
+      <div class="section-title"><h2>Produtos cadastrados</h2><h:form id="consulta"><h:commandButton value="Atualizar lista" action="#{produtoController.atualizar}"/></h:form></div>
+      <p class="empty"><h:outputText value="Nenhum produto cadastrado. Preencha o formulário para começar." rendered="#{empty produtoController.produtos}"/></p>
+      <h:form id="lista"><div class="table-scroll">
+        <h:dataTable value="#{produtoController.produtos}" var="p" rendered="#{not empty produtoController.produtos}" styleClass="produtos">
+          <h:column><f:facet name="header">Código</f:facet><h:outputText value="#{p.codigo}"/></h:column>
+          <h:column><f:facet name="header">Produto</f:facet><h:outputText value="#{p.nome}"/></h:column>
+          <h:column><f:facet name="header">Preço</f:facet><h:outputText value="#{p.preco}"><f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/></h:outputText></h:column>
+          <h:column><f:facet name="header">Estoque</f:facet><h:outputText value="#{p.estoque}"/></h:column>
+          <h:column><f:facet name="header">Ações</f:facet><h:commandButton value="Editar" action="#{produtoController.editar(p)}"/>
+            <h:commandButton value="Excluir" action="#{produtoController.excluir(p.id)}" styleClass="danger" onclick="return confirm('Excluir este produto?');"/>
+          </h:column>
+        </h:dataTable>
+      </div></h:form>
+    </section>
+    <footer>Exercício de aplicação web · JSF · Java · PostgreSQL</footer>
+  </main>
+</h:body>
+</f:view>
+</html>

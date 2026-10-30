@@ -1,0 +1,27 @@
+services:
+  banco:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: modulo38
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    volumes:
+      - dados_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d modulo38"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://banco:5432/modulo38
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+    depends_on:
+      banco:
+        condition: service_healthy
+volumes:
+  dados_postgres:

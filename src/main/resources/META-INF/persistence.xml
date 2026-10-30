@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+  <persistence-unit name="cadastroPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>br.com.lazaro.modulo38.domain.Produto</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="eclipselink.target-database" value="PostgreSQL"/>
+      <property name="eclipselink.weaving" value="false"/>
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+      <property name="eclipselink.logging.level" value="WARNING"/>
+      <property name="eclipselink.cache.shared.default" value="false"/>
+    </properties>
+  </persistence-unit>
+</persistence>
